@@ -1,14 +1,17 @@
 import React from 'react';
-import Post from './post';
+import Login from './login';
+import Register from './register';
+import Home from './home';
 
 export default class App extends React.Component {
+    componentWillMount() {
+        console.log('App component loaded');
+    }
+
     render(){
         return(
-            <div>
-                <h1>Hello my ReactJs App</h1>
-                <Post title ="Post 1"/>
-                <Post title ="Post 2"/>
-                <Post title ="Post 3"/>
+            <div className="">
+                <Login />
             </div>
         )
     }

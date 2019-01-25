@@ -1,16 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Router, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import './custom.css';
 import App from './components/app';
 import Login from './components/login';
-import Register from './components/register';
+import Register from './components/account/register';
 import PageNotFound from './components/pageNotFound';
-import Home from './components/home';
-import CreditCard from './components/creditCard';
-import AccountHistory from './components/accountHistory';
-import Contact from './components/contact';
+import Home from './components/menu/home';
 
 ReactDOM.render (
     <BrowserRouter>
@@ -18,10 +15,10 @@ ReactDOM.render (
             <Route path="/" exact={true} render={routerProps => <App {...routerProps} />} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/home" component={Home} />
-            <Route path="/credit-card" component={CreditCard} />
-            <Route path="/account-history" component={AccountHistory} />
-            <Route path="/contact" component={Contact} />
+            <Route path="/home" render={func => <Home {...func} tag='menu' />} />
+            <Route path="/credit-card" render={func => <Home {...func} tag='creditCard' />} />
+            <Route path="/account-history" render={func => <Home {...func} tag='accountHistory' />} />
+            <Route path="/contact" render={func => <Home {...func} tag='contact' />} />
             <Route path="*" component={PageNotFound} />
         </Switch>
     </BrowserRouter>

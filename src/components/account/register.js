@@ -24,7 +24,7 @@ export default class Register extends React.Component {
                                     <p className="text-muted">Create your account</p>
                                     <div className="mb-3 input-group">
                                         <div className="input-group-prepend"><span className="input-group-text"><i className="fas fa-at"></i></span></div>
-                                        <input placeholder="Email" autoComplete="email" type="text" className="form-control" />
+                                        <input placeholder="E-mail" autoComplete="email" type="text" className="form-control" />
                                     </div>
                                     <div className="mb-3 input-group">
                                         <div className="input-group-prepend"><span className="input-group-text"><i className="fas fa-user"></i></span></div>

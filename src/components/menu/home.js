@@ -1,5 +1,6 @@
 import React from 'react';
 import MenuHandler from './menuHandler';
+import * as Request from 'request';
 
 export default class Home extends React.Component {
 
@@ -7,6 +8,13 @@ export default class Home extends React.Component {
         super(props);
         console.log('Home js');
         console.log(props);
+
+        this.state = {
+            email: localStorage.getItem('loggedUser'),
+            balance: 0
+        }
+
+        this.getBalance = this.getBalance.bind(this);
     }
 
     handleHome() {
@@ -38,6 +46,30 @@ export default class Home extends React.Component {
     componentWillMount() {
         // console.log(this.props);
         console.log('Home component loaded');
+        this.getBalance();
+    }
+
+    getBalance() {
+        var options = {
+            url: `http://localhost:3000/account-history/getBalance?email=${this.state.email}`,
+            headers: { 'token' : 123456 }
+        };
+
+        Request(options, (error, response, body) => {
+            if (response.statusCode === 200) {
+                this.setState({
+                    balance: body
+                });
+            } else {
+                console.log(response.statusCode);
+                this.setState({    
+                    modal: true,
+                    tittle: `${response.statusCode} - ${response.statusMessage}`,
+                    description: JSON.parse(body).Description,
+                    error: error ? error : ''
+                });
+            }
+        });
     }
 
     menuList = {
@@ -53,7 +85,7 @@ export default class Home extends React.Component {
             <div className="vh-100 vw-100">
 
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary h-auto">
-                    <a className="navbar-brand" href="/home">My Ekki Account R$ 2.352,51</a>
+                    <a className="navbar-brand" href="/home">My Ekki Account ::: R$ {this.state.balance}</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>

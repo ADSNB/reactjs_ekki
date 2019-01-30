@@ -43,6 +43,7 @@ export default class ContactTransfer extends React.Component {
             if (response.statusCode === 200) {
                 this.props.history.push('/account-history');
             } else {
+                console.log('deu pau'+ body);
                 this.setState({    
                     modal: true,
                     tittle: `${response.statusCode} - ${response.statusMessage}`,

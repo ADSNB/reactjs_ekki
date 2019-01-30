@@ -109,7 +109,8 @@ export default class Login extends React.Component {
                                 <div className="text-center card-body">
                                     <div show={this.state.show}>
                                         <h2>Sign up</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <p>Welcome to Ekki.</p>
+                                        <p>If you are not a customer yet please feel free to register yourself!</p>
                                         <Link to="/register">
                                             <button onClick={this.handleRegisterNow} tabIndex="-1" className="mt-3 btn btn-primary active">Register Now!</button>
                                         </Link>

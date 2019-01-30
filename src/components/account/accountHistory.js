@@ -57,6 +57,7 @@ export default class AccountHistory extends React.Component {
                         <tr>
                             <th>#</th>
                             <th>To / From</th>
+                            <th>Payment Type</th>
                             <th>Quantity</th>
                             <th>Date</th>
                             <th>Status</th>
@@ -68,6 +69,7 @@ export default class AccountHistory extends React.Component {
                                 <tr>
                                     <th scope="row">{index+1}</th>
                                     <td>{history.contactEmail}</td>
+                                    <td><i class={history.cardNumber ? 'far fa-credit-card' : 'fas fa-coins' }></i></td>
                                     <td>{history.quantity}</td>
                                     <td>{history.date}</td>
                                     <td>

@@ -3,6 +3,12 @@ import MenuHandler from './menuHandler';
 
 export default class Home extends React.Component {
 
+    constructor(props) {
+        super(props);
+        console.log('Home js');
+        console.log(props);
+    }
+
     handleHome() {
         console.log('Home click');
         this.props.history.push('/home');
@@ -25,10 +31,12 @@ export default class Home extends React.Component {
 
     handleLogout() {
         console.log('Logout click');
+        localStorage.clear();
         this.props.history.push('/login');
     }
 
     componentWillMount() {
+        // console.log(this.props);
         console.log('Home component loaded');
     }
 
@@ -40,7 +48,7 @@ export default class Home extends React.Component {
     }
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             <div className="vh-100 vw-100">
 
@@ -72,7 +80,7 @@ export default class Home extends React.Component {
                 </nav>
                 
                 <main className="container text-center h-85 p-5 align-items-center">
-                    <MenuHandler tag={this.props.tag} />
+                    <MenuHandler history={this.props.history} tag={this.props.tag} />
                 </main>
 
                 <footer className="container-fluid align-items-end text-center h-auto">

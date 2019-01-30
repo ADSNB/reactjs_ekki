@@ -1,33 +1,52 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import * as Request from 'request';
+import Error from './modal/error';
 
 export default class Login extends React.Component {
-    constructor(props) {
-        super(props);
-
+    constructor() {
+        super();
+        
         this.state = { 
             email: '',
-            password: ''
+            password: '',
+            modal: false,
+            tittle: '',
+            description: [],
+            error: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({[event.target.name]: event.target.value});
-        this.validateForm();
-    }
-
-    validateForm() {
-        return this.state.email.length > 0 && this.state.password.length > 0;
+        this.setState({[event.target.name]: event.target.value, modal: false});
     }
 
     handleSubmit(e) {
-        console.log('Login click')
+        console.log('Login click');
+        var options = {
+            url: `http://localhost:3000/account?email=${this.state.email}&password=${this.state.password}`,
+            headers: { 'token' : 123456 }
+        };
+
+        Request(options, (error, response, body) => {
+            if (response.statusCode === 200) {
+                localStorage.setItem('loggedUser', this.state.email);
+                this.props.history.push('/home');
+            } else {
+                console.log(response.statusCode);
+                this.setState({    
+                    modal: true,
+                    tittle: `${response.statusCode} - ${response.statusMessage}`,
+                    description: JSON.parse(body).Description,
+                    error: error ? error : ''
+                });
+            }
+            
+        });
         e.preventDefault();
-        // se o usuário autenticar
-        this.props.history.push('/home', 'menu');
     }
 
     handleForgetPassword() {
@@ -88,7 +107,7 @@ export default class Login extends React.Component {
                             </div>
                             <div className="text-white bg-primary py-5 d-md-down-none card" >
                                 <div className="text-center card-body">
-                                    <div>
+                                    <div show={this.state.show}>
                                         <h2>Sign up</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                         <Link to="/register">
@@ -101,6 +120,9 @@ export default class Login extends React.Component {
                         </div>
                     </div>
                 </div>
+
+                <Error visible={this.state.modal} tittle={this.state.tittle} message={this.state.description} />
+                
             </div>
         )
     }

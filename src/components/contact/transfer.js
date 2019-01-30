@@ -1,9 +1,10 @@
 import React from 'react';
-import * as Request from 'request';
-import Error from '../modal/error';
 import { Link } from 'react-router-dom';
+import Error from '../modal/error';
+import * as Request from 'request';
 
-export default class CreditCardEdit extends React.Component {
+export default class ContactTransfer extends React.Component {
+
 
     constructor(props) {
         super(props);
@@ -12,9 +13,9 @@ export default class CreditCardEdit extends React.Component {
         console.log(props);
 
         this.state = { 
-            name: '',
-            password: '',
             email: localStorage.getItem('loggedUser'),
+            contactEmail: localStorage.getItem('transferTo'),
+            quantity: '',
             modal: false,
             tittle: '',
             description: [],
@@ -28,21 +29,19 @@ export default class CreditCardEdit extends React.Component {
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value, modal: false});
     }
-
+    
     handleSubmit(e) {
-        console.log('Login click');
         Request.post({
-            url: 'http://localhost:3000/credit-card',
+            url: 'http://localhost:3000/account-history',
             headers: { 'token' : 123456 },
             form: 
             {
                 email: this.state.email,
-                name: this.state.name,
-                password: this.state.password,
-                passwordConfirmation: this.state.passwordConfirmation
+                contactEmail: this.state.contactEmail,
+                quantity: this.state.quantity
             }}, (error, response, body) => {
             if (response.statusCode === 200) {
-                this.props.history.push('/credit-card');
+                this.props.history.push('/account-history');
             } else {
                 this.setState({    
                     modal: true,
@@ -64,23 +63,25 @@ export default class CreditCardEdit extends React.Component {
                             <div className="mx-5 card">
                             <div className="p-4 card-body">
                                 <form onSubmit={this.handleSubmit.bind(this)}>
-                                    <h1>Credit Card</h1>
-                                    <p className="text-muted">Customize your credit card</p>
+                                    <h1>Money Transfer</h1>
+                                    <p className="text-muted">Money Transfer</p>
                                     <div className="mb-3 input-group">
-                                        <div className="input-group-prepend"><span className="input-group-text"><i className="fas fa-font"></i></span></div>
-                                        <input onChange={this.handleChange} name="name" placeholder="Full name" autoComplete="fullname" type="text" className="form-control" />
+                                        <div className="input-group-prepend"><span className="input-group-text"><i className="fas fa-user"></i></span></div>
+                                        <input onChange={this.handleChange} name="contactEmail" placeholder="E-mail" disabled autoComplete="email" type="text" className="form-control" value={this.state.contactEmail} />
                                     </div>
-                                    <div className="mb-3 input-group">
-                                        <div className="input-group-prepend"><span className="input-group-text"><i className="fas fa-key"></i></span></div>
-                                        <input onChange={this.handleChange} name="password" placeholder="Card password" autoComplete="new-password" type="password" className="form-control" />
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input onChange={this.handleChange} name="quantity" type="text" class="form-control" aria-label="Amount (to the nearest dollar)" />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">,00</span>
+                                        </div>
                                     </div>
-                                    <div className="mb-4 input-group">
-                                        <div className="input-group-prepend"><span className="input-group-text"><i className="fas fa-key"></i></span></div>
-                                        <input onChange={this.handleChange} name="passwordConfirmation" placeholder="Repeat card password" autoComplete="new-password" type="password" className="form-control" />
-                                    </div>
-                                    <button className="btn btn-success btn-block">Create</button>
-                                    <Link to="/credit-card">
-                                        <button tabIndex="-1" className="btn btn-primary mt-3 btn-block">Voltar</button>
+                                    <br />
+                                    <button className="btn btn-success btn-block">Transfer</button>
+                                    <Link to="/contact">
+                                        <button tabIndex="-1" className="btn btn-primary mt-3 btn-block">Back</button>
                                     </Link>
                                 </form>
                             </div>

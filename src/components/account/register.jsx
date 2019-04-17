@@ -30,7 +30,7 @@ export default class Register extends React.Component {
         Request.post({
             url: 'http://localhost:3000/account',
             headers: { 'token' : 123456 },
-            form: 
+            form:
             {
                 name: this.state.name,
                 email: this.state.email,
@@ -40,7 +40,7 @@ export default class Register extends React.Component {
             if (response.statusCode === 200) {
                 this.props.history.push('/login');
             } else {
-                this.setState({    
+                this.setState({
                     modal: true,
                     tittle: `${response.statusCode} - ${response.statusMessage}`,
                     description: JSON.parse(body).Description,

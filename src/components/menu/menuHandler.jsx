@@ -9,13 +9,13 @@ import ContactEdit from '../contact/edit';
 import ContactTransfer from '../contact/transfer';
 
 export default class MenuHandler extends React.Component {
-    
+
     constructor(props) {
         super(props);
         console.log('menuhandler');
         console.log(props);
     }
-    
+
     components = {
         menu: Menu,
         creditCardList: CreditCardList,

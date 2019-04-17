@@ -11,7 +11,7 @@ export default class ContactEdit extends React.Component {
         console.log(localStorage.getItem('loggedUser'));
         console.log(props);
 
-        this.state = { 
+        this.state = {
             name: '',
             contactEmail: '',
             favorite: '',
@@ -30,12 +30,12 @@ export default class ContactEdit extends React.Component {
         console.log(this.state.favorite);
         this.setState({[event.target.name]: event.target.value, modal: false});
     }
-    
+
     handleSubmit(e) {
         Request.post({
             url: 'http://localhost:3000/contact',
             headers: { 'token' : 123456 },
-            form: 
+            form:
             {
                 name: this.state.name,
                 contactEmail: this.state.contactEmail,
@@ -45,7 +45,7 @@ export default class ContactEdit extends React.Component {
             if (response.statusCode === 200) {
                 this.props.history.push('/contact');
             } else {
-                this.setState({    
+                this.setState({
                     modal: true,
                     tittle: `${response.statusCode} - ${response.statusMessage}`,
                     description: JSON.parse(body).Description,
@@ -77,7 +77,7 @@ export default class ContactEdit extends React.Component {
                                     </div>
                                     <div className="custom-control custom-switch">
                                         <input onChange={this.handleChange} name="favorite" type="checkbox" className="custom-control-input" id="favorite"/>
-                                        <label className="custom-control-label" for="favorite">Favorite</label>
+                                        <label className="custom-control-label" htmlFor="favorite">Favorite</label>
                                     </div>
                                     <br />
                                     <button className="btn btn-success btn-block">Create</button>

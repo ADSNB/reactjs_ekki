@@ -52,7 +52,7 @@ export default class Home extends React.Component {
     getBalance() {
         var options = {
             url: `http://localhost:3000/account-history/getBalance?email=${this.state.email}`,
-            headers: { 'token' : 123456 }
+            headers: { 'token': 123456 }
         };
 
         Request(options, (error, response, body) => {
@@ -62,7 +62,7 @@ export default class Home extends React.Component {
                 });
             } else {
                 console.log(response.statusCode);
-                this.setState({    
+                this.setState({
                     modal: true,
                     tittle: `${response.statusCode} - ${response.statusMessage}`,
                     description: JSON.parse(body).Description,
@@ -87,21 +87,21 @@ export default class Home extends React.Component {
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary h-auto">
                     <a className="navbar-brand" href="/home">My Ekki Account ::: R$ {this.state.balance}</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"></span>
                     </button>
 
                     <div className="collapse navbar-collapse" id="navbarColor02">
                         <ul className="navbar-nav mr-auto">
-                            <li className={ 'nav-item' + this.props.tag === this.menuList.Menu ? 'active' : '' }>
+                            <li className={'nav-item' + this.props.tag === this.menuList.Menu ? 'active' : ''}>
                                 <button onClick={this.handleHome.bind(this)} className="nav-link btn" href="#">Home <span className="sr-only">(current)</span></button>
                             </li>
-                            <li className={ 'nav-item' + this.props.tag === this.menuList.CreditCard ? 'active' : '' }>
+                            <li className={'nav-item' + this.props.tag === this.menuList.CreditCard ? 'active' : ''}>
                                 <button onClick={this.handleCreditCard.bind(this)} className="nav-link btn" href="#">Credit Card</button>
                             </li>
-                            <li className={ 'nav-item' + this.props.tag === this.menuList.AccountHistory ? 'active' : '' }>
+                            <li className={'nav-item' + this.props.tag === this.menuList.AccountHistory ? 'active' : ''}>
                                 <button onClick={this.handleAccountHistory.bind(this)} className="nav-link btn" href="#">Account History</button>
                             </li>
-                            <li className={ 'nav-item' + this.props.tag === this.menuList.Contact ? 'active' : '' }>
+                            <li className={'nav-item' + this.props.tag === this.menuList.Contact ? 'active' : ''}>
                                 <button onClick={this.handleContact.bind(this)} className="nav-link btn" href="#">Contact's</button>
                             </li>
                             <li>
@@ -110,7 +110,7 @@ export default class Home extends React.Component {
                         </ul>
                     </div>
                 </nav>
-                
+
                 <main className="container text-center h-85 p-5 align-items-center">
                     <MenuHandler history={this.props.history} tag={this.props.tag} />
                 </main>
@@ -118,7 +118,7 @@ export default class Home extends React.Component {
                 <footer className="container-fluid align-items-end text-center h-auto">
 
                     <span className="ml-auto">
-                        Powered by 
+                        Powered by
                         <a href="https://tt.linkedin.com/in/alan-dos-santos-nunes-bernd-5662b974"> ADSNB</a>
                     </span>
 

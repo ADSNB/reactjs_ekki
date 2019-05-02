@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as Request from "request";
 import Error from "./modal/error";
 import Context from "../context/context";
+import ContactEdit from "./contact/edit";
 
 export default class Login extends React.Component {
   constructor() {
@@ -69,6 +70,12 @@ export default class Login extends React.Component {
     user("alan", "alan.email");
     console.log("ola");
   }
+
+  ok = UserContext => {
+    console.log(UserContext);
+    UserContext.login("alan", "novoemail");
+    console.log(UserContext);
+  };
 
   render() {
     return (
@@ -162,14 +169,20 @@ export default class Login extends React.Component {
                             </button>
                           </Link>
                           <button
-                            onClick={this.onC.bind(
-                              this,
-                              context.UserContext.login
-                            )}
+                            onClick={() => console.log(context.UserActions)}
                           >
                             Atualiza
                           </button>
-                          {/* <button onClick={context.UserContext.isLoggedIn}>Atualiza Comp</button> */}
+                          <button
+                            onClick={() =>
+                              context.UserActions("name.jonathan", "email.j@")
+                            }
+                          >
+                            Atualiza Comp
+                          </button>
+                          {/* <button onClick={() => this.ok(context.UserContext)}>
+                            Atualiza Comp
+                          </button> */}
                         </div>
                       </div>
                     </div>
